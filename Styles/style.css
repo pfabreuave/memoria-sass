@@ -67,14 +67,31 @@ body {
     transform: rotateY(180deg);
 }
 
-
+/* 
 .block-value {
     position: relative;
     max-width: 100%;
     max-height: 100%;
     transition: transform 100ms ease-in-out;
     transform: scale(.9);
+} */
+
+
+
+.block-value {
+    position: relative;
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 100ms ease-in-out;
+    transform: scale(.9);
+    font-size: 3em; /* Ajusta el tamaño de la letra aquí */
+    color: white; /* Ajusta el color de la letra aquí */
 }
+
+
 
 .block-face {
     position: absolute;
@@ -192,6 +209,18 @@ body {
     z-index: 1;
 }
 
+.letter-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute; /* Posicionamos el elemento de forma absoluta para centrarlo */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 32px; /* Ajusta el tamaño de fuente según tus preferencias */
+    color: white; /* Ajusta el color del texto según tus preferencias */
+}
 
 /* Estilos para pantallas grandes */
 @media screen and (min-width: 768px) {

@@ -55,7 +55,7 @@ class Blocks {
 
 
 class MemoryBlock {
-    //Clase que representa un bloque de memoria con una imagen en el juego
+    // Clase que representa un bloque de memoria con una imagen en el juego
     constructor(id, frontImage, backImage) {
         this.id = id;
         this.blockCSS = "block";
@@ -66,7 +66,6 @@ class MemoryBlock {
         this.frontCSS = "block-front block-face";
         this.backCSS = "block-back block-face";
         this.imgCSS = "block-value";
-        
     }
 }
 

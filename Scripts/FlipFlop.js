@@ -19,11 +19,8 @@ gameOver(): Muestra el mensaje de juego terminado cuando se agota el tiempo.
 
 
 
-// for creating divs and shuffling blocks
 var divblock, blockData, blockFrontImages, memoryBlockArr, blocksArray, blockFrontImagesAll, shuffledBlocks;
-// for implementing flip n match logic
 var currentlyFlippedArr, matchedCount, blockToMatch1, blockToMatch2;
-// for implementing game info block
 var flipCounter, timer, gameOn = false;
 
 var overlays = Array.from(document.getElementsByClassName('overlay-text'));
@@ -59,7 +56,7 @@ function resetGame() {
 function init() { 
     // Inicializando valores
     gameOn = true;
-    memoryBlockArr = new Array(18);
+    memoryBlockArr = new Array(24);
     blocksArray = [];
     blockFrontImagesAll = [];
     shuffledBlocks = [];
@@ -96,7 +93,7 @@ function init() {
         return images;
     }
 
-    getRandomPokemonImages(9)
+    getRandomPokemonImages(12)
         .then((randomImages) => {
             shuffledBlocks = shuffleBlocks(randomImages); // Mezcla las imágenes aleatorias
             createElements(shuffledBlocks);
@@ -108,12 +105,69 @@ function init() {
 
 
 // Crea los elementos del juego (bloques) con las imágenes de los Pokémon obtenidas aleatoriamente.
+//function createElements(blockFrontImages) {
+
+    // var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; // Creamos un array con las letras del abecedario
+    // var alphabetIndex = 0; // Contador para seleccionar las letras
+
+    // var finalCount = blockFrontImages.length;
+    // for (var i = 0; i < finalCount; i++) {
+    //     var cardFront = blockFrontImages[i];
+    //     var letter = alphabet[alphabetIndex]; // Seleccionamos la letra correspondiente
+
+    //     blockData = new MemoryBlock(i, cardFront, "Images/pokemonBack.jpg", letter); // Pasamos la letra como argumento
+    //     memoryBlockArr[i] = blockData;
+
+    //     // Restablecemos el contador al principio del abecedario si llegamos al final
+    //     alphabetIndex = (alphabetIndex + 1) % alphabet.length;
+
+    //     // Resto del código para crear las tarjetas...
+    // }
+    
+    // var finalCount = blockFrontImages.length;
+    // for (var i = 0; i < finalCount; i++) {
+    //     var cardFront = blockFrontImages[i];
+    //     blockData = new MemoryBlock(i, cardFront, "Images/poke-shadow.png");
+    //     memoryBlockArr[i] = blockData;
+    //     divblock = document.createElement("div");
+    //     divblockFront = document.createElement("div");
+    //     divblockBack = document.createElement("div");
+    //     imgFront = document.createElement("img");
+    //     imgBack = document.createElement("img");
+    //     divblock.id = memoryBlockArr[i].id;
+    //     divblock.className = memoryBlockArr[i].blockCSS;
+    //     divblockFront.className = memoryBlockArr[i].frontCSS;
+    //     divblockBack.className = memoryBlockArr[i].backCSS;
+    //     imgFront.src = memoryBlockArr[i].frontImage;
+    //     imgFront.className = memoryBlockArr[i].imgCSS;
+    //     imgBack.src = memoryBlockArr[i].backImage;
+    //     imgBack.className = memoryBlockArr[i].imgCSS;
+    //     divblockFront.append(imgFront);
+    //     divblockBack.append(imgBack);
+    //     divblock.append(divblockFront);
+    //     divblock.append(divblockBack);
+    //     divblock.addEventListener('click', flipBlock);
+    //     document.getElementById("gameMainBlock").append(divblock);
+    // }
+
+    
+//}
+
+
 function createElements(blockFrontImages) {
+    var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; // Creamos un array con las letras del abecedario
+    var alphabetIndex = 0; // Contador para seleccionar las letras
+
     var finalCount = blockFrontImages.length;
     for (var i = 0; i < finalCount; i++) {
         var cardFront = blockFrontImages[i];
-        blockData = new MemoryBlock(i, cardFront, "Images/poke-shadow.png");
+        var letter = alphabet[alphabetIndex]; // Seleccionamos la letra correspondiente
+
+        blockData = new MemoryBlock(i, cardFront, "Images/pokemonBack.jpg"); // Quitamos la letra como argumento
         memoryBlockArr[i] = blockData;
+
+        // Restablecemos el contador al principio del abecedario si llegamos al final
+        alphabetIndex = (alphabetIndex + 1) % alphabet.length;
         divblock = document.createElement("div");
         divblockFront = document.createElement("div");
         divblockBack = document.createElement("div");
@@ -125,9 +179,15 @@ function createElements(blockFrontImages) {
         divblockBack.className = memoryBlockArr[i].backCSS;
         imgFront.src = memoryBlockArr[i].frontImage;
         imgFront.className = memoryBlockArr[i].imgCSS;
-        imgBack.src = memoryBlockArr[i].backImage;
+        imgBack.src = "Images/poke-shadow.png";
         imgBack.className = memoryBlockArr[i].imgCSS;
+
+        var letterSpan = document.createElement("span");
+        letterSpan.textContent = memoryBlockArr[i].letter;
+        letterSpan.className = "letter-center";
+
         divblockFront.append(imgFront);
+        divblockFront.append(letterSpan); // Cambiamos el orden para que la letra esté después de la imagen
         divblockBack.append(imgBack);
         divblock.append(divblockFront);
         divblock.append(divblockBack);
@@ -135,6 +195,7 @@ function createElements(blockFrontImages) {
         document.getElementById("gameMainBlock").append(divblock);
     }
 }
+
 
 
 // Oculta los bloques del juego.
@@ -146,15 +207,11 @@ function hideElements() {
 }
 
 
-//Baraja un array de bloques (shuffle).
 function shuffleBlocks(blocksArray) {
     var currentIndex = blocksArray.length, temporaryValue, randomIndex;
-    // While there remain elements to shuffle...
     while (currentIndex !== 0) {
-        // Pick an element from the remaining lot...
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
-        // Swap it with the current element.
         temporaryValue = blocksArray[currentIndex];
         blocksArray[currentIndex] = blocksArray[randomIndex];
         blocksArray[randomIndex] = temporaryValue;
@@ -201,7 +258,6 @@ function blocksMatched() {
     document.getElementById(blockToMatch1).removeEventListener('click', flipBlock);
     document.getElementById(blockToMatch2).removeEventListener('click', flipBlock);
     if (matchedCount === memoryBlockArr.length) {
-       // if (matchedCount === 2) {
         var wait = ms => new Promise(resolve => setTimeout(resolve, ms));
         Promise.resolve(1000).then(() => wait(1000)).then(() => { showWin(); });        
     }
@@ -210,7 +266,6 @@ function blocksMatched() {
 
 // Vuelve a voltear los bloques en caso de no ser coincidentes.
 function revertFlip() {
-   // alert(blockToMatch1 + "  trying to revert  " + blockToMatch2);
     document.getElementById(blockToMatch1).classList.remove('visible');
     document.getElementById(blockToMatch2).classList.remove('visible');
     currentlyFlippedArr = [];
