@@ -1,22 +1,71 @@
-﻿/*
-    Funciones:
+﻿var countdown;
+class Player {
+    // Clase que representa a un jugador en el juego
+    constructor(name, score, turnTotal, avatar, spot) {
+        this.name = name;
+        this.score = score;
+        this.turnTotal = turnTotal;
+        this.avatar = avatar;
+        this.spot = spot;
 
-startCountdown(): Inicia un temporizador que disminuye el tiempo restante en el juego cada segundo.
-resetGame(): Reinicia el juego eliminando los elementos existentes.
-init(): Inicializa el juego al obtener las imágenes de los Pokémon aleatorios y crea los elementos necesarios.
-createElements(blockFrontImages): Crea los elementos del juego (bloques) con las imágenes de los Pokémon obtenidas aleatoriamente.
-hideElements(): Oculta los bloques del juego.
-shuffleBlocks(blocksArray): Baraja un array de bloques (shuffle).
-flipBlock(): Maneja la lógica de volteo de los bloques en el juego.
-blocksMatched(): Gestiona el comportamiento cuando se encuentran bloques coincidentes.
-revertFlip(): Vuelve a voltear los bloques en caso de no ser coincidentes.
-showWin(): Muestra el mensaje de victoria al completar el juego.
-gameOver(): Muestra el mensaje de juego terminado cuando se agota el tiempo.
+    }
+}
 
-*/
+class Tiles {
+    //Clase que representa las casillas del tablero del juego
+    constructor(id, width, height, x, y, snake, ladder, next) {
+        this.id = id;
+        this.width = width;
+        this.height = height;
+        this.x = x;
+        this.y = y;
+        this.snake = snake;
+        this.ladder = ladder;
+        this.next = next;
+}
+
+}
 
 
+class Blocks {
+    //Clase que representa los bloques de memoria del juego
+    constructor(id, className, innerText, bgColor, snake, ladder, next) {
+        this.id = id;
+        this.className = className;
+        this.innerText = innerText;
+        this.bgColor = bgColor;
+        this.snake = snake;
+        this.ladder = ladder;
+        this.next = next;
+    }
 
+}
+
+
+class MemoryBlock {
+    // Clase que representa un bloque de memoria con una imagen en el juego
+    constructor(id, frontImage, backImage) {
+        this.id = id;
+        this.blockCSS = "block";
+        this.frontImage = frontImage;
+        this.backImage = backImage;
+        this.front = false;
+        this.back = true;
+        this.frontCSS = "block-front block-face";
+        this.backCSS = "block-back block-face";
+        this.imgCSS = "block-value";
+    }
+}
+
+class gameInfo {
+    //Clase que representa la información del juego, como el tiempo restante y el número de volteos
+    constructor(totalTime, cards) {
+        this.cardsArray = cards;
+        this.totalTime = totalTime;
+        this.timeRemaining = totalTime;
+        this.flips = 0;
+    }
+}
 
 
 var divblock, blockData, blockFrontImages, memoryBlockArr, blocksArray, blockFrontImagesAll, shuffledBlocks;
@@ -104,56 +153,24 @@ function init() {
 }
 
 
+function startTimer(duration, display) {
+    var timer = 60 * duration, minutes, seconds;
+    countdown = setInterval(() => {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        display.textContent = `Time ${ minutes }:${ seconds }`;
+        if (--timer < 0) {
+            gameOver();
+        }
+    }, 1000);
+}
+
+
+
+
 // Crea los elementos del juego (bloques) con las imágenes de los Pokémon obtenidas aleatoriamente.
-//function createElements(blockFrontImages) {
-
-    // var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; // Creamos un array con las letras del abecedario
-    // var alphabetIndex = 0; // Contador para seleccionar las letras
-
-    // var finalCount = blockFrontImages.length;
-    // for (var i = 0; i < finalCount; i++) {
-    //     var cardFront = blockFrontImages[i];
-    //     var letter = alphabet[alphabetIndex]; // Seleccionamos la letra correspondiente
-
-    //     blockData = new MemoryBlock(i, cardFront, "Images/pokemonBack.jpg", letter); // Pasamos la letra como argumento
-    //     memoryBlockArr[i] = blockData;
-
-    //     // Restablecemos el contador al principio del abecedario si llegamos al final
-    //     alphabetIndex = (alphabetIndex + 1) % alphabet.length;
-
-    //     // Resto del código para crear las tarjetas...
-    // }
-    
-    // var finalCount = blockFrontImages.length;
-    // for (var i = 0; i < finalCount; i++) {
-    //     var cardFront = blockFrontImages[i];
-    //     blockData = new MemoryBlock(i, cardFront, "Images/poke-shadow.png");
-    //     memoryBlockArr[i] = blockData;
-    //     divblock = document.createElement("div");
-    //     divblockFront = document.createElement("div");
-    //     divblockBack = document.createElement("div");
-    //     imgFront = document.createElement("img");
-    //     imgBack = document.createElement("img");
-    //     divblock.id = memoryBlockArr[i].id;
-    //     divblock.className = memoryBlockArr[i].blockCSS;
-    //     divblockFront.className = memoryBlockArr[i].frontCSS;
-    //     divblockBack.className = memoryBlockArr[i].backCSS;
-    //     imgFront.src = memoryBlockArr[i].frontImage;
-    //     imgFront.className = memoryBlockArr[i].imgCSS;
-    //     imgBack.src = memoryBlockArr[i].backImage;
-    //     imgBack.className = memoryBlockArr[i].imgCSS;
-    //     divblockFront.append(imgFront);
-    //     divblockBack.append(imgBack);
-    //     divblock.append(divblockFront);
-    //     divblock.append(divblockBack);
-    //     divblock.addEventListener('click', flipBlock);
-    //     document.getElementById("gameMainBlock").append(divblock);
-    // }
-
-    
-//}
-
-
 function createElements(blockFrontImages) {
     var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'; // Creamos un array con las letras del abecedario
     var alphabetIndex = 0; // Contador para seleccionar las letras
@@ -163,7 +180,7 @@ function createElements(blockFrontImages) {
         var cardFront = blockFrontImages[i];
         var letter = alphabet[alphabetIndex]; // Seleccionamos la letra correspondiente
 
-        blockData = new MemoryBlock(i, cardFront, "Images/pokemonBack.jpg"); // Quitamos la letra como argumento
+        blockData = new MemoryBlock(i, cardFront, "Images/pokelco.png"); // Quitamos la letra como argumento
         memoryBlockArr[i] = blockData;
 
         // Restablecemos el contador al principio del abecedario si llegamos al final
@@ -179,7 +196,7 @@ function createElements(blockFrontImages) {
         divblockBack.className = memoryBlockArr[i].backCSS;
         imgFront.src = memoryBlockArr[i].frontImage;
         imgFront.className = memoryBlockArr[i].imgCSS;
-        imgBack.src = "Images/poke-shadow.png";
+        //imgBack.src = "Images/poke-shadow.png";
         imgBack.className = memoryBlockArr[i].imgCSS;
 
         var letterSpan = document.createElement("span");
@@ -196,8 +213,6 @@ function createElements(blockFrontImages) {
     }
 }
 
-
-
 // Oculta los bloques del juego.
 function hideElements() {
     hideBlocks = Array.from(document.getElementsByClassName('block'));
@@ -206,7 +221,7 @@ function hideElements() {
     } 
 }
 
-
+// Baraja un array de bloques (shuffle).
 function shuffleBlocks(blocksArray) {
     var currentIndex = blocksArray.length, temporaryValue, randomIndex;
     while (currentIndex !== 0) {
