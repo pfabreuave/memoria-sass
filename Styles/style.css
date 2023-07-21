@@ -55,8 +55,8 @@ body {
 .block {
     position: relative;
     cursor: auto;
-    height: 115px;
-    width: 115px;
+    height: 110px;
+    width: 110px;
 }
 
 .block-front {
