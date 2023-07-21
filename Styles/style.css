@@ -23,7 +23,7 @@ body {
 
 .game-title {
     color: greenyellow;
-    font-family:'Tangerine', cursive;    
+    /* font-family:'Tangerine', cursive;     */
     font-weight: bolder;
     text-align: center;
     font-size: 6vw

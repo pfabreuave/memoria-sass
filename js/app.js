@@ -134,7 +134,8 @@ function init() {
             const randomId = randomIndices[i];
             const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`);
             const data = await response.json();
-            const imageUrl = data.sprites.front_default;
+            // const imageUrl = data.sprites.front_default;
+            const imageUrl = data.sprites.other.dream_world.front_default;
             images.push(imageUrl);
             images.push(imageUrl); // Agrega la imagen dos veces para que haya un par de cada una
         }
