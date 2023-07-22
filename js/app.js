@@ -1,4 +1,4 @@
-﻿var countdown;
+﻿
 class Player {
     // Clase que representa a un jugador en el juego
     constructor(name, score, turnTotal, avatar, spot) {
@@ -69,8 +69,15 @@ class gameInfo {
 
 
 var divblock, blockData, blockFrontImages, memoryBlockArr, blocksArray, blockFrontImagesAll, shuffledBlocks;
-var currentlyFlippedArr, matchedCount, blockToMatch1, blockToMatch2;
+var currentlyFlippedArr, matchedCount, blockToMatch1, blockToMatch2, countdown, minutes, display;
 var flipCounter, timer, gameOn = false;
+
+/*
+
+    Este código selecciona todos los elementos del documento HTML que tienen la clase "overlay-text" 
+    y agrega un evento de clic a cada uno de ellos. Cuando se hace clic en uno de estos elementos, 
+    se eliminará la clase "visible" del elemento, y luego se llamará a las funciones `resetGame()` e `init()`. 
+*/
 
 var overlays = Array.from(document.getElementsByClassName('overlay-text'));
 overlays.forEach(overlay => {
@@ -112,10 +119,10 @@ function init() {
     currentlyFlippedArr = [];
     matchedCount = 0;     
     flipCounter = 0;
-    var minutes = 2;
-    var display = document.getElementById("Timer");
+    minutes = 2;
+    display = document.getElementById("Timer");
 
-    startTimer(minutes, display);
+   startTimer(minutes, display);
 
     async function getRandomPokemonImages(count) {
         const images = [];
@@ -143,6 +150,16 @@ function init() {
         return images;
     }
 
+    /*
+
+        Obtiene las imágenes aleatorias de Pokémon de la API oficial Pokemon utilizando la función 
+        getRandomPokemonImages.
+        Una vez que las imágenes aleatorias están disponibles, las mezcla de manera aleatoria utilizando 
+        la función shuffleBlocks.
+        Finalmente, crea elementos HTML para mostrar las imágenes mezcladas en la página utilizando la 
+        función createElements.
+    */
+
     getRandomPokemonImages(12)
         .then((randomImages) => {
             shuffledBlocks = shuffleBlocks(randomImages); // Mezcla las imágenes aleatorias
@@ -153,6 +170,12 @@ function init() {
         });
 }
 
+
+/*
+
+    función de temporizador que cuenta hacia atrás desde un valor de tiempo específico y actualiza 
+    el contenido de un elemento HTML para mostrar el tiempo restante en formato de minutos y segundos.
+*/
 
 function startTimer(duration, display) {
     var timer = 60 * duration, minutes, seconds;
