@@ -282,7 +282,8 @@ function flipBlock() {
                     gameOn = false;
                     var wait = ms => new Promise(resolve => setTimeout(resolve, ms));
                     Promise.resolve(800).then(() => wait(800)).then(() => { revertFlip(); });
-
+                    var flipAudio = document.getElementById('flipSound');
+                        flipAudio.play();
                 }
             }
         }
@@ -298,7 +299,13 @@ function blocksMatched() {
     document.getElementById(blockToMatch2).removeEventListener('click', flipBlock);
     if (matchedCount === memoryBlockArr.length) {
         var wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-        Promise.resolve(1000).then(() => wait(1000)).then(() => { showWin(); });        
+        Promise.resolve(1000).then(() => wait(1000)).then(() => { 
+            showWin(); 
+            var winAudio = document.getElementById('winSound');
+            winAudio.play();
+        });        
+    } else {
+        playMatchSound();
     }
 }
 
@@ -326,4 +333,9 @@ function gameOver() {
     gameOn = false;
     document.getElementById('gameOverText').classList.add('visible');
     clearInterval(countdown);
+}
+
+function playMatchSound() {
+    var matchAudio = document.getElementById('matchSound');
+    matchAudio.play();
 }
