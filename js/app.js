@@ -122,7 +122,7 @@ function init() {
     minutes = 2;
     display = document.getElementById("Timer");
 
-   startTimer(minutes, display);
+//    startTimer(minutes, display);
 
     async function getRandomPokemonImages(count) {
         const images = [];
@@ -149,6 +149,8 @@ function init() {
 
         return images;
     }
+
+    startTimer(minutes, display);
 
     /*
 
