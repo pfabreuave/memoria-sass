@@ -130,7 +130,7 @@ function init() {
         // Genera una lista de índices aleatorios entre 1 y 150 sin repetición
         const randomIndices = [];
         while (randomIndices.length < count) {
-            const randomId = Math.floor(Math.random() * 150) + 1;
+            const randomId = Math.floor(Math.random() * 300) + 1;
             if (!randomIndices.includes(randomId)) {
                 randomIndices.push(randomId);
             }
