@@ -234,11 +234,11 @@ body {
 /* Pantallas medianas */
 @media screen and (max-width: 1023px) and (min-width: 768px) {
     .game-container {
-        grid-template-columns: repeat(4, 110px); /* Reduce a 4 columnas */
+        grid-template-columns: repeat(4, 120px); /* Reduce a 4 columnas */
     }
     .block {
-        height: 110px;
-        width: 110px;
+        height: 120px;
+        width: 120px;
     }
 }
 
