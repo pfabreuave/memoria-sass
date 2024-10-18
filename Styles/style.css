@@ -43,6 +43,7 @@ body {
     letter-spacing:2px;
 }
 
+/*
 .game-container {
     margin: 50px auto;
     display: grid;
@@ -51,6 +52,8 @@ body {
     justify-content: center;
     perspective: 500px;
 }
+
+*/
 
 .block {
     position: relative;
@@ -207,49 +210,57 @@ body {
     color: white; /* Ajusta el color del texto según tus preferencias */
 }
 
-/* Estilos para pantallas grandes */
-@media screen and (min-width: 768px) {
-    .game-title {
-        font-size: 4em;
-    }
 
-    .overlay-text {
-        font-size: 4em;
-    }
+/* Estilos base */
+.game-container {
+    margin: 40px auto;
+    display: grid;
+    grid-gap: 10px;
+    justify-content: center;
+    perspective: 500px;
+}
 
+/* Para pantallas grandes */
+@media screen and (min-width: 1024px) {
     .game-container {
-        grid-template-columns: repeat(6, auto);
+        grid-template-columns: repeat(6, 120px); /* Mantiene 6 columnas */
+    }
+    .block {
+        height: 120px;
+        width: 120px;
     }
 }
 
-/* Estilos para pantallas medianas */
+/* Pantallas medianas */
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+    .game-container {
+        grid-template-columns: repeat(4, 130px); /* Reduce a 4 columnas */
+    }
+    .block {
+        height: 130px;
+        width: 130px;
+    }
+}
+
+/* Pantallas pequeñas */
 @media screen and (max-width: 767px) {
-    .game-title {
-        font-size: 3em;
-    }
-
-    .overlay-text {
-        font-size: 3em;
-    }
-
-
     .game-container {
-        grid-template-columns: repeat(4, auto);
+        grid-template-columns: repeat(3, 110px); /* Reduce a 3 columnas */
+    }
+    .block {
+        height: 110px;
+        width: 110px;
     }
 }
 
-/* Estilos para pantallas pequeñas */
+/* Pantallas muy pequeñas (teléfonos) */
 @media screen and (max-width: 480px) {
-    .game-title {
-        font-size: 2em;
-    }
-
-    .overlay-text {
-        font-size: 2em;
-    }
-
-
     .game-container {
-        grid-template-columns: repeat(2, auto);
+        grid-template-columns: repeat(2, 90px); /* Solo 2 columnas */
+    }
+    .block {
+        height: 90px;
+        width: 90px;
     }
 }
+
