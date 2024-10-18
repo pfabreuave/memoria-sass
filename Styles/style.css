@@ -259,8 +259,8 @@ body {
         grid-template-columns: repeat(2, 90px); /* Solo 2 columnas */
     }
     .block {
-        height: 90px;
-        width: 90px;
+        height: 110px;
+        width: 110px;
     }
 }
 
