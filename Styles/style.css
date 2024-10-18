@@ -234,11 +234,11 @@ body {
 /* Pantallas medianas */
 @media screen and (max-width: 1023px) and (min-width: 768px) {
     .game-container {
-        grid-template-columns: repeat(4, 130px); /* Reduce a 4 columnas */
+        grid-template-columns: repeat(4, 110px); /* Reduce a 4 columnas */
     }
     .block {
-        height: 130px;
-        width: 130px;
+        height: 110px;
+        width: 110px;
     }
 }
 
@@ -256,7 +256,7 @@ body {
 /* Pantallas muy pequeñas (teléfonos) */
 @media screen and (max-width: 480px) {
     .game-container {
-        grid-template-columns: repeat(2, 90px); /* Solo 2 columnas */
+        grid-template-columns: repeat(2, 110px); /* Solo 2 columnas */
     }
     .block {
         height: 110px;
