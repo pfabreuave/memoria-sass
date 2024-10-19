@@ -204,9 +204,10 @@ function createElements(blockFrontImages) {
     var finalCount = blockFrontImages.length;
     for (var i = 0; i < finalCount; i++) {
         var cardFront = blockFrontImages[i];
-        var letter = alphabet[alphabetIndex]; // Seleccionamos la letra correspondiente
+        //var letter = alphabet[alphabetIndex]; // Seleccionamos la letra correspondiente
 
-        blockData = new MemoryBlock(i, cardFront, "Images/pokelco.png"); // Quitamos la letra como argumento
+        //blockData = new MemoryBlock(i, cardFront, "Images/pokeIco.png"); // Quitamos la letra como argumento
+        blockData = new MemoryBlock(i, cardFront); // Quitamos la letra como argumento
         memoryBlockArr[i] = blockData;
 
         // Restablecemos el contador al principio del abecedario si llegamos al final
