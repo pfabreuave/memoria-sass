@@ -146,11 +146,13 @@ function init() {
             images.push(imageUrl);
             images.push(imageUrl); // Agrega la imagen dos veces para que haya un par de cada una
         }
-
+        startTimer(minutes, display);
         return images;
+        
+
     }
 
-    startTimer(minutes, display);
+    //startTimer(minutes, display);
 
     /*
 
